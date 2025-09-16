@@ -3,16 +3,11 @@
     <!-- Header -->
     <q-card flat bordered class="q-mb-md">
       <div class="row items-center justify-between q-pa-sm">
-        <!-- Logo -->
         <div class="row items-center">
-          <q-img
-            src="~src/assets/Screenshot from 2025-01-09 15-51-47.png"
-            style="width: 60px; height: 60px"
-          />
+          <q-img src="/images/logo.png" style="width:60px; height:60px" />
           <div class="q-ml-sm text-bold text-h6">EMRAN HASMI</div>
         </div>
 
-        <!-- Search -->
         <q-input
           v-model="searchText"
           placeholder="সার্চ করুন..."
@@ -23,7 +18,6 @@
           style="width: 250px"
         />
 
-        <!-- Icons -->
         <div class="row items-center q-gutter-sm">
           <q-btn flat round icon="notifications" />
           <q-btn flat round icon="menu" />
@@ -31,13 +25,13 @@
       </div>
     </q-card>
 
-    <!-- Special Offers Carousel -->
+    <!-- Carousel -->
     <q-carousel
       v-model="currentSlide"
-      animated
       arrows
-      infinite
       swipeable
+      animated
+      infinite
       height="220px"
       class="q-mb-lg"
     >
@@ -50,22 +44,11 @@
         <div>
           <h3 class="text-h6">{{ offer.title }}</h3>
           <p class="text-subtitle2">
-            up to
-            <span class="text-yellow text-bold">{{ offer.discount }}</span
-            >%
+            up to <span class="text-yellow text-bold">{{ offer.discount }}</span>%
           </p>
-          <q-btn
-            color="yellow"
-            text-color="black"
-            label="Buy Now"
-            class="q-mt-sm"
-            @click="buyNow(offer)"
-          />
+          <q-btn color="yellow" text-color="black" label="Buy Now" @click="buyNow(offer)" />
         </div>
-        <q-img
-          :src="offer.image"
-          style="width: 140px; height: 140px; border-radius: 8px"
-        />
+        <q-img :src="offer.image" style="width:140px; height:140px; border-radius:8px" />
       </q-carousel-slide>
     </q-carousel>
 
@@ -75,30 +58,46 @@
         v-for="category in categories"
         :key="category.name"
         class="q-pa-sm text-center"
-        style="min-width: 100px"
+        style="min-width:100px"
       >
-        <q-img :src="category.image" style="width: 60px; height: 60px" />
+        <q-img :src="category.image" style="width:60px; height:60px" />
         <div class="text-subtitle2 q-mt-xs">{{ category.name }}</div>
       </q-card>
     </div>
 
     <!-- Food Items -->
     <div>
-      <h3 class="q-mb-md">খাবার আইটেম</h3>
+      <h3 class="q-mb-md"> খাবার আইটেম</h3>
       <div class="row q-col-gutter-md">
-        <div
-          v-for="food in foodItems"
-          :key="food.name"
-          class="col-12 col-sm-6 col-md-3"
-        >
+        <div v-for="food in foodItems" :key="food.name" class="col-12 col-sm-6 col-md-3">
           <q-card bordered>
-            <q-img :src="food.image" style="height: 150px" />
+            <q-img :src="food.image" style="height:150px" />
             <q-card-section>
               <div class="text-h6">{{ food.name }}</div>
               <div class="text-subtitle2 text-primary">৳{{ food.price }}</div>
             </q-card-section>
             <q-card-actions align="right">
               <q-btn flat round icon="add" @click="addToCart(food)" />
+            </q-card-actions>
+          </q-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Packages as Food Items -->
+    <div class="q-mt-lg">
+      <h3 class="q-mb-md"> থাকা ও খাওয়ার প্যাকেজ</h3>
+      <div class="row q-col-gutter-md">
+        <div v-for="pkg in packages" :key="pkg.title" class="col-12 col-sm-6 col-md-3">
+          <q-card bordered>
+            <q-img :src="pkg.image" style="height:150px" />
+            <q-card-section>
+              <div class="text-h6">{{ pkg.title }}</div>
+              <div class="text-subtitle2 text-primary">৳{{ pkg.price }}</div>
+              <div class="text-subtitle2 q-mt-xs"><i class="fas fa-map-marker-alt"></i> {{ pkg.location }}</div>
+            </q-card-section>
+            <q-card-actions align="right">
+              <q-btn flat round icon="add" @click="addToCart(pkg)" />
             </q-card-actions>
           </q-card>
         </div>
@@ -119,94 +118,53 @@
 import { ref } from "vue";
 
 export default {
-  name: "HomePage",
   setup() {
     const searchText = ref("");
     const currentSlide = ref(1);
 
     const offers = [
-      {
-        id: 1,
-        title: "Special Pizza Offer",
-        discount: 15,
-        image: "https://via.placeholder.com/150/ff7f7f/000000",
-      },
-      {
-        id: 2,
-        title: "Burger Combo Deal",
-        discount: 20,
-        image: "https://via.placeholder.com/150/7fcfff/000000",
-      },
-      {
-        id: 3,
-        title: "Weekend Hotel Stay",
-        discount: 10,
-        image: "https://via.placeholder.com/150/7fff7f/000000",
-      },
+      { id:1, title:"Special Pizza Offer", discount:15, image:"/images/food1.png" },
+      { id:2, title:"Burger Combo Deal", discount:20, image:"/images/food2.png" },
+      { id:3, title:"Weekend Hotel Stay", discount:10, image:"/images/food3.png" },
     ];
 
     const categories = [
-      { name: "ফুড", image: "https://via.placeholder.com/60" },
-      { name: "থাকা ও খাওয়া", image: "https://via.placeholder.com/60" },
-      { name: "শুধু খাওয়া", image: "https://via.placeholder.com/60" },
-      { name: "সেট মেনু", image: "https://via.placeholder.com/60" },
+      { name:"ফুড", image:"/images/food1.png" },
+      { name:"থাকা ও খাওয়া", image:"/images/food2.png" },
+      { name:"থাকা", image:"/images/food3.png" },
+      { name:"শুধু খাওয়া", image:"/images/food4.png" },
+      { name:"সেট মেনু", image:"/images/food5.png" },
     ];
 
     const foodItems = [
-      {
-        name: "চিকেন দম বিরিয়ানি",
-        price: 180,
-        image: "https://via.placeholder.com/200x120",
-      },
-      {
-        name: "চিকেন রোস্ট",
-        price: 120,
-        image: "https://via.placeholder.com/200x120",
-      },
-      {
-        name: "বাসমতি কাচ্চি",
-        price: 250,
-        image: "https://via.placeholder.com/200x120",
-      },
-      {
-        name: "বিফ তেহারি",
-        price: 200,
-        image: "https://via.placeholder.com/200x120",
-      },
+      { name:"চিকেন বিরিয়ানি", price:180, image:"/images/food1.png" },
+      { name:"বিফ বার্গার", price:120, image:"/images/food2.png" },
+      { name:"পিজ্জা", price:250, image:"/images/food3.png" },
+      { name:"স্যান্ডউইচ", price:90, image:"/images/food4.png" },
+    ];
+
+    const packages = [
+      { title: 'থাকা খাওয়া - ৩ বেলা', price: '5500/30 Days', image: '/images/package1.png', location:'বাসাবো প্যাকেট (ফ্রি লাউব্রাক)' },
+      { title: 'থাকা খাওয়া - ৩ বেলা', price: '5500/30 Days', image: '/images/package2.png', location:'বাসাবো প্যাকেট (ফ্রি লাউব্রাক)' },
+      { title: 'থাকা খাওয়া - ৩ বেলা', price: '5500/30 Days', image: '/images/package3.png', location:'বাসাবো প্যাকেট (ফ্রি লাউব্রাক)' },
     ];
 
     const bottomNav = [
-      { label: "হোম", icon: "home" },
-      { label: "ফুড আইটেমস", icon: "fastfood" },
-      { label: "থাকা ও খাওয়া", icon: "hotel" },
-      { label: "সেট মেনু", icon: "restaurant_menu" },
-      { label: "অর্ডার", icon: "shopping_cart" },
+      { label:"হোম", icon:"home" },
+      { label:"ফুড", icon:"fastfood" },
+      { label:"থাকা", icon:"hotel" },
+      { label:"সেট মেনু", icon:"restaurant_menu" },
+      { label:"অর্ডার", icon:"shopping_cart" },
     ];
 
-    const buyNow = (offer) => {
-      alert(`You selected: ${offer.title}`);
-    };
+    const buyNow = (offer)=> alert(`You selected: ${offer.title}`);
+    const addToCart = (item)=> alert(`Added ${item.title || item.name} to cart!`);
 
-    const addToCart = (food) => {
-      alert(`Added ${food.name} to cart!`);
-    };
-
-    return {
-      searchText,
-      currentSlide,
-      offers,
-      categories,
-      foodItems,
-      bottomNav,
-      buyNow,
-      addToCart,
-    };
-  },
+    return { searchText, currentSlide, offers, categories, foodItems, packages, bottomNav, buyNow, addToCart };
+  }
 };
 </script>
 
 <style>
-.scroll-x {
-  overflow-x: auto;
-}
+.scroll-x { overflow-x:auto; }
 </style>
